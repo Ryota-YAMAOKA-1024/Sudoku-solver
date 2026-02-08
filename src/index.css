@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-main: #0a0a0f;
+  --color-bg-panel: #1a1a2e;
+  --color-neon-cyan: #00fff5;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-green: #39ff14;
+  --color-grid-line: #3a3a5c;
+  --color-text: #e0e0e0;
+  --color-error: #ff3366;
+  --color-success: #00ff88;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--color-bg-main);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 10px var(--color-neon-cyan), 0 0 20px var(--color-neon-cyan), 0 0 30px var(--color-neon-cyan);
+}
+
+.glow-magenta {
+  box-shadow: 0 0 10px var(--color-neon-magenta), 0 0 20px var(--color-neon-magenta);
+}
+
+.glow-green {
+  box-shadow: 0 0 10px var(--color-neon-green), 0 0 20px var(--color-neon-green);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px var(--color-neon-cyan), 0 0 20px var(--color-neon-cyan);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px var(--color-neon-green), 0 0 20px var(--color-neon-green);
+}
+
+/* Cell animations */
+@keyframes pulse-highlight {
+  0%, 100% { background-color: rgba(0, 255, 245, 0.2); }
+  50% { background-color: rgba(0, 255, 245, 0.4); }
+}
+
+@keyframes backtrack-flash {
+  0% { background-color: rgba(255, 51, 102, 0.6); }
+  100% { background-color: transparent; }
+}
+
+@keyframes success-flash {
+  0%, 100% { background-color: rgba(0, 255, 136, 0.3); }
+  50% { background-color: rgba(0, 255, 136, 0.6); }
+}
+
+.cell-highlight {
+  animation: pulse-highlight 0.5s ease-in-out infinite;
+}
+
+.cell-backtrack {
+  animation: backtrack-flash 0.3s ease-out;
+}
+
+.cell-success {
+  animation: success-flash 0.5s ease-in-out 3;
+}
+
+/* Circuit animation */
+@keyframes circuit-flow {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes circuit-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.circuit-path {
+  stroke-dasharray: 1000;
+  animation: circuit-flow 3s linear infinite;
+}
+
+.circuit-node {
+  animation: circuit-pulse 1s ease-in-out infinite;
+}
+
+/* Button styles */
+.cyber-button {
+  position: relative;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid var(--color-neon-cyan);
+  color: var(--color-neon-cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.cyber-button:hover {
+  background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+  box-shadow: 0 0 20px var(--color-neon-cyan), inset 0 0 20px rgba(0, 255, 245, 0.1);
+}
+
+.cyber-button:active {
+  transform: scale(0.98);
+}
+
+.cyber-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 245, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
